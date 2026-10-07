@@ -16,7 +16,7 @@ folium==0.17.0
 pyogrio==0.8.0
 
 # ESRI & ArcGIS Online
-arcgis==2.2.0.4
+arcgis==2.4.3
 
 # Environment Variables & Networking
 python-dotenv==1.0.1
