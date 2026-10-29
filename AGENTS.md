@@ -107,3 +107,39 @@ If repository files cannot be accessed or edited from Codex in VS Code, Codex De
 ## Definition of Done
 
 A task is complete when the requested direct edits are made and the response includes a brief summary of changed files, important assumptions, and any manual validation the user should perform.
+
+## Repository Layout
+
+- `data/` (git-ignored): `raw/` holds original downloads (do not commit); `processed/` holds cleaned, derived spatial outputs.
+- `notebooks/`: Jupyter exploration. `src/`: production code. `scripts/`: production-ready scripts.
+- `.devcontainer/`: VS Code dev container config. `.env.example`: environment variable template. `.gitignore`: spatial binary and secret blocklist.
+
+## Python Environment and Commands
+
+- **Python Version:** 3.11 (as specified in `.devcontainer/devcontainer.json`).
+- **Package Manager:** pip. Dev tools: ruff (linting) and pytest (when tests exist).
+- **Install Dependencies:** Only when the user asks for setup or approves the install: `pip install -r requirements.txt` (production) and `pip install -r requirements-dev.txt` (development, includes JupyterLab).
+- **Run Code:** Notebooks with `jupyter lab`; scripts with `python scripts/my_script.py` or through scheduled tasks; tests with `pytest`.
+- **Lint:** `ruff check .` (ruff enforces PEP 8 conventions).
+- **Test Changes:** Test changes in notebooks or scripts before committing.
+
+## Spatial Data Storage and Practices
+
+- **No Large Binaries in Git:** Never commit large binary spatial files (`.shp`, `.gdb`, `.tif`, `.gpkg`, etc.). See `.gitignore` for the full blocklist.
+- **Storage:** Store raw data in `data/raw/` and processed outputs in `data/processed/`, both git-ignored. Document schema, CRS, and transformations in notebooks or `docs/`.
+- **CRS:** State the CRS explicitly for every spatial operation. Never assume one; verify it against metadata, shapefiles, or GeoJSON properties.
+- **Geometry Validation:** Check for null geometries, self-intersections, or invalid coordinates before processing.
+- **Large Datasets:** For datasets over 100 MB, use `geopandas` chunking, spatial indexing, or filtering.
+
+## ArcGIS Online and Enterprise Safety
+
+Before modifying hosted layers, feature services, or scheduled jobs:
+1. Confirm the target portal URL and account.
+2. Identify item IDs and service names.
+3. Prefer dry-run behavior for new scripts.
+4. Never overwrite services or truncate data without explicit user confirmation.
+
+## Environment Variables and Secrets
+
+- Use `.env.example` as the template. Keep a local `.env` (git-ignored) for ArcGIS Online credentials, API keys, portal URLs or service names, and other sensitive configuration.
+- Never commit actual credentials to Git.
