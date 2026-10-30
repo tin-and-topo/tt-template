@@ -78,5 +78,5 @@ Please refer to [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for specific i
 
 ## Point of Contact
 
-* **Project Owner:** Colin T. Stiles | cts@tinandtopo.com
-* **Last Updated:** 2026-10-07
+* **Project Owner:** Colin T. Stiles | colin@tinandtopo.com
+* **Last Updated:** [Date]
